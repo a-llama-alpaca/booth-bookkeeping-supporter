@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <style>
+    body {
+      width: 320px;
+      padding: 10px;
+      font-family: sans-serif;
+    }
+
+    label {
+      font-size: 12px;
+      font-weight: bold;
+      display: block;
+      margin-bottom: 5px;
+    }
+
+    input,
+    select {
+      padding: 4px;
+      box-sizing: border-box;
+    }
+
+    .period-container {
+      border: 1px solid #ddd;
+      padding: 10px;
+      border-radius: 4px;
+      margin: 10px 0;
+      background: #f9f9f9;
+    }
+
+    .period-row {
+      display: flex;
+      gap: 4px;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .select-group {
+      display: flex;
+      gap: 2px;
+      align-items: center;
+    }
+
+    select {
+      font-size: 11px;
+    }
+
+    button {
+      width: 100%;
+      padding: 10px;
+      background: #fc4d50;
+      color: white;
+      border: none;
+      cursor: pointer;
+      border-radius: 4px;
+      font-weight: bold;
+    }
+
+    button:hover {
+      background: #e33b3d;
+    }
+  </style>
+</head>
+
+<body>
+  <div style="text-align: center; margin-bottom: 15px; border-bottom: 2px solid #fc4d50; padding-bottom: 5px;">
+    <h2 style="margin: 0; color: #fc4d50; font-size: 18px;">BOOTH帳簿サポーター</h2>
+  </div>
+
+  <div style="margin-bottom: 10px;">
+    <label style="color: #28a745; font-weight: bold;">【購入履歴】仕訳CSV生成 + 画像保存</label>
+  </div>
+  <label>貸方勘定（決済手段名）</label>
+  <input type="text" id="creditAccount" value="事業主借" style="width: 100%; margin-bottom: 10px;">
+
+  <label>出力形式（会計ソフト）</label>
+  <select id="exportFormat" style="width: 100%; margin-bottom: 10px;">
+    <option value="simple">簡易帳簿形式（単式）</option>
+    <option value="double">仕訳帳形式（複式）</option>
+    <option value="freee">freee用CSV（複式）</option>
+    <option value="yayoi">弥生会計用CSV（複式）</option>
+    <option value="mf">マネーフォワード用CSV（複式）</option>
+  </select>
+
+  <div class="period-container">
+    <label>抽出期間（未選択で全期間）</label>
+    <div class="period-row">
+      <div class="select-group">
+        <select id="startYear">
+          <option value="">----</option>
+        </select>
+        <select id="startMonth">
+          <option value="">--</option>
+        </select>
+      </div>
+      <span>～</span>
+      <div class="select-group">
+        <select id="endYear">
+          <option value="">----</option>
+        </select>
+        <select id="endMonth">
+          <option value="">--</option>
+        </select>
+      </div>
+    </div>
+  </div>
+
+  <button id="extract">購入履歴CSVを生成</button>
+
+  <p style="font-size: 11px; color: #d9534f; margin: 5px 0; line-height: 1.4;">
+    ※購入履歴ページを開いた状態でボタンを押してください。
+  </p>
+
+  <div style="margin-top: 15px; margin-bottom: 10px;">
+    <label style="margin-bottom: 2px;">ファイル名形式</label>
+    <select id="filenameFormat" style="width: 100%;">
+      <option value="standard">booth_order_注文番号.png</option>
+      <option value="dencho">日付_取引先_金額_注文詳細.png (電帳法対応)</option>
+    </select>
+    <p style="font-size: 11px; color: #d9534f; margin: 5px 0; line-height: 1.4;">
+      ※解析・撮影には少し時間がかかります。
+    </p>
+  </div>
+  <button id="captureImages" style="background: #28a745;">証憑画像を一括保存</button>
+
+  <div style="margin-top: 15px; border-top: 2px solid #28a745; padding-top: 10px;">
+    <label style="color: #28a745; font-weight: bold;">【売上管理】仕訳CSV生成</label>
+
+    <label>借方勘定（振込先預金名）</label>
+    <input type="text" id="salesDebitAccount" value="普通預金" style="width: 100%; margin-bottom: 10px;">
+
+    <label>振込手数料</label>
+    <select id="payoutMethod" style="width: 100%; margin-bottom: 10px;">
+      <option value="bank">200 / 300円（銀行振込）</option>
+      <option value="paypal">0円（Paypal）</option>
+    </select>
+
+    <button id="extractSales"
+      style="background: #28a745; color: white; width: 100%; margin-top: 5px;">月毎売上CSVを生成</button>
+
+    <p style="font-size: 11px; color: #d9534f; margin: 5px 0; line-height: 1.4;">
+      ※ショップ管理ページを開いた状態でボタンを押してください。<br>
+      ※出力形式と抽出期間は上の【購入履歴】で設定したものを使用します。
+    </p>
+  </div>
+
+
+  <script src="popup.js"></script>
+</body>

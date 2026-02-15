@@ -1,0 +1,22 @@
+{
+  "manifest_version": 3,
+  "name": "BOOTH帳簿サポーター",
+  "version": "1.0",
+  "permissions": [
+    "tabs",
+    "scripting",
+    "activeTab",
+    "downloads",
+    "debugger"
+  ],
+  "host_permissions": [
+    "https://accounts.booth.pm/*",
+    "https://manage.booth.pm/*"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "action": {
+    "default_popup": "popup.html"
+  }
+}
